@@ -14,11 +14,10 @@ module.exports = {
     "plugin:prettier/recommended"
   ],
   parserOptions: {
-    parser: "typescript-eslint-parser",
     ecmaVersion: 2018,
     sourceType: "module",
-    extraFileExtensions: [".scss"],
-    project: "tsconfig.json"
+    project: "tsconfig.json",
+    extraFileExtensions: [".scss"]
   },
   settings: {
     react: {
