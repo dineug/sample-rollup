@@ -14,10 +14,7 @@ module.exports = {
     "plugin:prettier/recommended"
   ],
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: "module",
-    project: "tsconfig.json",
-    extraFileExtensions: [".scss"]
+    project: "tsconfig.json"
   },
   settings: {
     react: {
