@@ -3,15 +3,8 @@ import url from "@rollup/plugin-url";
 import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import stylelint from "rollup-plugin-stylelint";
 import { terser } from "rollup-plugin-terser";
 import { eslint } from "rollup-plugin-eslint";
-
-import pkg from "./package.json";
-import path from "path";
-import postcss from "rollup-plugin-postcss";
-import postcssPrefixer from "postcss-prefixer";
-import autoprefixer from "autoprefixer";
 
 const common = [
   json(),
@@ -20,18 +13,7 @@ const common = [
   commonjs({
     include: "node_modules/**"
   }),
-  eslint(),
-  stylelint(),
-  postcss({
-    extract: path.join(__dirname, `dist/${pkg.name}.css`),
-    minimize: true,
-    plugins: [
-      autoprefixer(),
-      postcssPrefixer({
-        prefix: `${pkg.name}-`
-      })
-    ]
-  })
+  eslint()
 ];
 
 export default function plugins() {
