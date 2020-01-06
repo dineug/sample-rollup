@@ -39,7 +39,6 @@ export default [
     plugins: [
       stylelint(),
       postcss({
-        extract: true,
         minimize: true,
         plugins: [
           autoprefixer(),
