@@ -1,8 +1,8 @@
 import pkg from "./package.json";
-import plugins from "./rollup.config.plugins";
+import config from "./rollup.config.common";
 import { uglify } from "rollup-plugin-uglify";
 
-const { umd, esm, css } = plugins();
+const { umd, esm, css, cssMin, banner } = config();
 
 export default [
   {
@@ -11,13 +11,15 @@ export default [
       {
         name: "sample",
         file: pkg.browser,
-        format: "umd"
+        format: "umd",
+        banner
       },
       {
         name: "sample",
         file: `dist/${pkg.name}.umd.min.js`,
         format: "umd",
-        plugins: [uglify()]
+        plugins: [uglify()],
+        banner
       }
     ],
     plugins: umd
@@ -27,19 +29,13 @@ export default [
     output: [
       {
         file: pkg.main,
-        format: "cjs"
-      },
-      {
-        file: `dist/${pkg.name}.cjs.min.js`,
-        format: "cjs"
+        format: "cjs",
+        banner
       },
       {
         file: pkg.module,
-        format: "es"
-      },
-      {
-        file: `dist/${pkg.name}.esm.min.js`,
-        format: "es"
+        format: "es",
+        banner
       }
     ],
     plugins: esm
@@ -51,5 +47,13 @@ export default [
       format: "es"
     },
     plugins: css
+  },
+  {
+    input: "src/sass/index.scss",
+    output: {
+      file: `dist/${pkg.name}.min.css`,
+      format: "es"
+    },
+    plugins: cssMin
   }
 ];

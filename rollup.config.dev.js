@@ -1,29 +1,28 @@
 import pkg from "./package.json";
-import plugins from "./rollup.config.plugins";
+import config from "./rollup.config.common";
 import browsersync from "rollup-plugin-browsersync";
 import html from "rollup-plugin-generate-html-template";
 
-const { umd, css } = plugins();
+const { umd, css, banner } = config();
 
 export default [
   {
     input: "src/ts/index.ts",
-    output: [
-      {
-        name: "tsplit",
-        file: pkg.browser,
-        format: "umd",
-        plugins: [
-          html({
-            template: "src/index.html",
-            target: "dist/index.html"
-          }),
-          browsersync({
-            server: "dist"
-          })
-        ]
-      }
-    ],
+    output: {
+      name: "tsplit",
+      file: pkg.browser,
+      format: "umd",
+      plugins: [
+        html({
+          template: "src/index.html",
+          target: "dist/index.html"
+        }),
+        browsersync({
+          server: "dist"
+        })
+      ],
+      banner
+    },
     plugins: umd
   },
   {

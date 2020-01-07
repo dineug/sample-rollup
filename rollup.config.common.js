@@ -11,6 +11,13 @@ import postcss from "rollup-plugin-postcss";
 import autoprefixer from "autoprefixer";
 import postcssPrefixer from "postcss-prefixer";
 
+const banner = `/*!
+ * ${pkg.name}
+ * @version ${pkg.version} | ${new Date().toDateString()}
+ * @author ${pkg.author}
+ * @license ${pkg.license}
+ */`;
+
 const common = [
   json(),
   url(),
@@ -25,6 +32,19 @@ const css = [
   stylelint(),
   postcss({
     extract: true,
+    plugins: [
+      autoprefixer(),
+      postcssPrefixer({
+        prefix: `${pkg.name}-`
+      })
+    ]
+  })
+];
+
+const cssMin = [
+  stylelint(),
+  postcss({
+    extract: true,
     minimize: true,
     plugins: [
       autoprefixer(),
@@ -35,7 +55,7 @@ const css = [
   })
 ];
 
-export default function plugins() {
+export default function config() {
   const umd = [...common];
   const esm = [...common];
   umd.push(typescript());
@@ -50,6 +70,8 @@ export default function plugins() {
   return {
     umd,
     esm,
-    css
+    css,
+    cssMin,
+    banner
   };
 }
