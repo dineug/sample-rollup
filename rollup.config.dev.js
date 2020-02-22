@@ -9,7 +9,7 @@ export default [
   {
     input: "src/ts/index.ts",
     output: {
-      name: "tsplit",
+      name: "sample",
       file: pkg.browser,
       format: "umd",
       plugins: [
